@@ -10,3 +10,21 @@ export async function fetchServerStatus() {
     return { error };
   }
 }
+
+export async function fetchToken(user) {
+  try {
+    const data = await fetch(`${API_URL}user/login`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(user)
+    });
+
+    const res = await data.json();
+
+    return res;
+  } catch (error) {
+    return { error };
+  }
+}

@@ -37,7 +37,7 @@ function App() {
         <Route path="/posts/new" exact>
           <PostNewForm />
         </Route> */}
-        <Route path="/">
+        <Route path="/login">
           <Login />
         </Route>
       </Switch>
