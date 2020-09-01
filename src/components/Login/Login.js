@@ -1,21 +1,53 @@
 import React, { useEffect, useState } from 'react';
 import { fetchToken } from '../../lib/api';
+import { validatePassword, validateUsername } from '../../lib/validator';
 
 export default function Login() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState(null);
+  const [password, setPassword] = useState(null);
+  const [usernameError, setUsernameError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [formError, setFormError] = useState('');
 
   async function handleSubmit(e) {
-    e.preventDefault();
-    // TODO refactor this shit out
-    const res = await fetchToken({ username, password });
+    e.preventDefault(); // TODO we need a redirection
 
-    if (res.validationError) {
-      console.error(res.validationError);
+    const usernameError = validateUsername(username);
+    const passwordError = validatePassword(password);
+
+    if (usernameError || passwordError) {
+      // e.preventDefault();
+      setUsernameError(usernameError);
+      setPasswordError(passwordError);
     } else {
-      console.log(res);
+      const res = await fetchToken({ username, password });
+
+      if (res.usernameError) {
+        setUsernameError(' is invalid');
+      } else if (res.passwordError) {
+        setPasswordError(' is invalid');
+      } else if (res.unknownError) {
+        setFormError(res.error);
+      } else {
+        setFormError('');
+
+        // localStorage.setItem('token', res);
+      }
     }
   }
+
+  // validate after inputs change
+  useEffect(() => {
+    if (username !== null) {
+      setUsernameError(validateUsername(username));
+    }
+  }, [username]);
+
+  useEffect(() => {
+    if (password !== null) {
+      setPasswordError(validatePassword(password));
+    }
+  }, [password]);
 
   function handleUsernameChange(e) {
     setUsername(e.currentTarget.value);
@@ -28,15 +60,23 @@ export default function Login() {
   return (
     <section className="LoginFormSection">
       <h2>Login</h2>
-      <form method="Post" onSubmit={handleSubmit}>
-        <label htmlFor="username">Username</label>
+      <form
+        method="Post"
+        onSubmit={handleSubmit}
+        className={(formError || usernameError || passwordError) && 'FormError'}
+      >
+        <label htmlFor="username" className={usernameError && 'Error'}>
+          Username {usernameError}
+        </label>
         <input
           type="text"
           id="username"
           name="username"
           onChange={handleUsernameChange}
         />
-        <label htmlFor="password">Password</label>
+        <label htmlFor="password" className={passwordError && 'Error'}>
+          Password {passwordError}
+        </label>
         <input
           type="password"
           name="password"
@@ -44,6 +84,7 @@ export default function Login() {
           onChange={handlePasswordChange}
         />
         <button>Login</button>
+        {!formError ? '' : <label className="Error">{formError}</label>}
       </form>
     </section>
   );

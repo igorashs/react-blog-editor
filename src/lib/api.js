@@ -23,6 +23,14 @@ export async function fetchToken(user) {
 
     const res = await data.json();
 
+    if (res.validationError) {
+      if (res.validationError === 'Invalid password')
+        return { error: res.validationError, passwordError: true };
+      if (res.validationError === 'Invalid username')
+        return { error: res.validationError, usernameError: true };
+      return { error: res.validationError, unknownError: true };
+    }
+
     return res;
   } catch (error) {
     return { error };

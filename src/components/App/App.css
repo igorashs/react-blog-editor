@@ -53,3 +53,7 @@ a {
 .Online {
   color: #adff2f;
 }
+
+.FormError {
+  box-shadow: 1px 1px 1px 1px #d25454 !important;
+}
