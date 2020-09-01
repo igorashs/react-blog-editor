@@ -1,12 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
 import Status from './Status';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  Redirect
+} from 'react-router-dom';
 import { fetchServerStatus } from '../../lib/api';
-import Login from '../Login';
+
+import Loading from '../Loading';
+const Login = lazy(() => import('../Login'));
+const Posts = lazy(() => import('../Posts'));
 
 function App() {
   // const posts = usePosts();
   const isOnline = useIsOnline();
+  const token = useToken();
 
   return (
     <Router>
@@ -16,19 +26,24 @@ function App() {
             <li>
               <Link to="/">BlogEditor</Link>
             </li>
-            <li>
-              <Link to="/posts">-Posts-</Link>
-            </li>
+            {token ? (
+              <li>
+                <Link to="/posts">-Posts-</Link>
+              </li>
+            ) : (
+              ''
+            )}
           </ul>
         </nav>
         <Status status={isOnline} />
+        {/* {token ? <button>Logout</button> : ''} */}
       </header>
-
-      <Switch>
-        {/* <Route path="/" exact>
+      <Suspense fallback={<Loading />}>
+        <Switch>
+          {/* <Route path="/" exact>
           <Login />
         </Route> */}
-        {/* <Route path="/posts" exact>
+          {/* <Route path="/posts" exact>
           <Posts posts={posts} />
         </Route>
         <Route path="/posts/:postId" exact>
@@ -37,10 +52,13 @@ function App() {
         <Route path="/posts/new" exact>
           <PostNewForm />
         </Route> */}
-        <Route path="/login">
-          <Login />
-        </Route>
-      </Switch>
+
+          <Route path="/login">{token ? <Redirect to="/" /> : <Login />}</Route>
+          <Route path="/">
+            {!token ? <Redirect to="/login" /> : <Posts />}
+          </Route>
+        </Switch>
+      </Suspense>
     </Router>
   );
 }
@@ -90,6 +108,17 @@ function useIsOnline() {
   });
 
   return isOnline;
+}
+
+// get the token from LocalStorage
+function useToken() {
+  const [token, setToken] = useState('');
+
+  useEffect(() => {
+    setToken(localStorage.getItem('token'));
+  }, []);
+
+  return token;
 }
 
 export default App;

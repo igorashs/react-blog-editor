@@ -10,13 +10,11 @@ export default function Login() {
   const [formError, setFormError] = useState('');
 
   async function handleSubmit(e) {
-    e.preventDefault(); // TODO we need a redirection
-
+    e.preventDefault();
     const usernameError = validateUsername(username);
     const passwordError = validatePassword(password);
 
     if (usernameError || passwordError) {
-      // e.preventDefault();
       setUsernameError(usernameError);
       setPasswordError(passwordError);
     } else {
@@ -31,7 +29,9 @@ export default function Login() {
       } else {
         setFormError('');
 
-        // localStorage.setItem('token', res);
+        localStorage.setItem('token', res);
+        localStorage.setItem('sip', 'do not touch my token');
+        window.location.reload();
       }
     }
   }
