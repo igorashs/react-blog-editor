@@ -29,7 +29,7 @@ export default function Login() {
       } else {
         setFormError('');
 
-        if (typeof res === String) {
+        if (typeof res === 'string') {
           localStorage.setItem('token', res);
           localStorage.setItem('sip', 'do not touch my token');
           window.location.reload();

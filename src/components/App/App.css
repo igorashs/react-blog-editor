@@ -57,3 +57,19 @@ a {
 .FormError {
   box-shadow: 1px 1px 1px 1px #d25454 !important;
 }
+
+.Status {
+  display: grid;
+  grid-auto-flow: column;
+  gap: 16px;
+  justify-items: center;
+}
+
+.Status a {
+  text-decoration: none;
+  padding: 0 8px;
+}
+
+.Status a:hover {
+  background-color: #524d53;
+}

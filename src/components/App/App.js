@@ -35,8 +35,16 @@ function App() {
             )}
           </ul>
         </nav>
-        <Status status={isOnline} />
-        {/* {token ? <button>Logout</button> : ''} */}
+        <div className="Status">
+          <Status status={isOnline} />
+          {token ? (
+            <a href="#" onClick={handleLogout}>
+              Logout
+            </a>
+          ) : (
+            ''
+          )}
+        </div>
       </header>
       <Suspense fallback={<Loading />}>
         <Switch>
@@ -122,3 +130,8 @@ function useToken() {
 }
 
 export default App;
+
+function handleLogout() {
+  localStorage.removeItem('token');
+  window.location.reload();
+}
