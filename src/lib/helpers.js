@@ -26,3 +26,9 @@ export function sortByDate(dataArr) {
     return 0;
   });
 }
+
+// removes invalid token and reloads the page
+export function logout() {
+  localStorage.removeItem('token');
+  window.location.reload();
+}
