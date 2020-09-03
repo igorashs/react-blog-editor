@@ -36,3 +36,19 @@ export async function fetchToken(user) {
     return { error };
   }
 }
+
+export async function fetchPosts(token) {
+  try {
+    const res = await fetch(`${API_URL}posts/`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+
+    const data = await res.json();
+
+    return data;
+  } catch (error) {
+    return { error };
+  }
+}
