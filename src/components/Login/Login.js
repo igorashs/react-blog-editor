@@ -29,9 +29,11 @@ export default function Login() {
       } else {
         setFormError('');
 
-        localStorage.setItem('token', res);
-        localStorage.setItem('sip', 'do not touch my token');
-        window.location.reload();
+        if (typeof res === String) {
+          localStorage.setItem('token', res);
+          localStorage.setItem('sip', 'do not touch my token');
+          window.location.reload();
+        }
       }
     }
   }
