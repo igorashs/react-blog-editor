@@ -10,11 +10,13 @@ import {
 import { fetchServerStatus } from '../../lib/api';
 
 import Loading from '../Loading';
+import Post from '../Post';
+
 const Login = lazy(() => import('../Login'));
 const Posts = lazy(() => import('../Posts'));
+// const Post = lazy(() => import('../Post'));
 
 function App() {
-  // const posts = usePosts();
   const isOnline = useIsOnline();
   const token = useToken();
 
@@ -26,13 +28,6 @@ function App() {
             <li>
               <Link to="/">BlogEditor</Link>
             </li>
-            {token ? (
-              <li>
-                <Link to="/posts">-Posts-</Link>
-              </li>
-            ) : (
-              ''
-            )}
           </ul>
         </nav>
         <div className="Status">
@@ -48,19 +43,9 @@ function App() {
       </header>
       <Suspense fallback={<Loading />}>
         <Switch>
-          {/* <Route path="/" exact>
-          <Login />
-        </Route> */}
-          {/* <Route path="/posts" exact>
-          <Posts posts={posts} />
-        </Route>
-        <Route path="/posts/:postId" exact>
-          <PostEditForm posts={posts} />
-        </Route>
-        <Route path="/posts/new" exact>
-          <PostNewForm />
-        </Route> */}
-
+          <Route path="/posts/:postId" exact>
+            {!token ? <Redirect to="/login" /> : <Post />}
+          </Route>
           <Route path="/login">{token ? <Redirect to="/" /> : <Login />}</Route>
           <Route path="/">
             {!token ? <Redirect to="/login" /> : <Posts />}
@@ -70,30 +55,6 @@ function App() {
     </Router>
   );
 }
-
-// fetch posts data and return posts state
-// function usePosts() {
-//   const [posts, setPosts] = useState(null);
-
-//   useEffect(() => {
-//     const fetch = async () => {
-//       const posts = await fetchPublishedPosts();
-
-//       if (!posts.error) {
-//         addTimestamps(posts);
-//         sortByDate(posts);
-//         setPosts(posts);
-//       } else {
-//         console.error('Failed to fetch the data, Try to fetch again in 5sec');
-//         setTimeout(fetch, 5000);
-//       }
-//     };
-
-//     fetch();
-//   }, []);
-
-//   return posts;
-// }
 
 // fetch server status and return status state
 function useIsOnline() {
