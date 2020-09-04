@@ -43,6 +43,9 @@ function App() {
       </header>
       <Suspense fallback={<Loading />}>
         <Switch>
+          <Route path="/posts/new" exact>
+            {!token ? <Redirect to="/login" /> : <h1>new</h1>}
+          </Route>
           <Route path="/posts/:postId" exact>
             {!token ? <Redirect to="/login" /> : <Post />}
           </Route>

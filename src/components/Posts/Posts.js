@@ -42,6 +42,11 @@ export default function Posts() {
           </button>
         </div>
       </section>
+      <section className="listMenu">
+        <Link to="/posts/new" className="menuBtn">
+          Create
+        </Link>
+      </section>
       <ul className="PostsList">
         {filteredPosts &&
           filteredPosts.map((post) => (

@@ -33,7 +33,8 @@
   margin-right: 16px;
 }
 
-.filter {
+.filter,
+.menuBtn {
   border: 0;
   background: rgba(86, 186, 144, 40%);
   color: white;
@@ -41,6 +42,20 @@
   font-size: 18px;
   padding: 4px 6px;
   cursor: pointer;
+}
+
+.listMenu {
+  padding: 16px 0;
+}
+
+.menuBtn {
+  background: rgba(86, 149, 186, 0.4);
+  text-decoration: none;
+}
+
+.menuBtn:focus,
+.menuBtn:hover {
+  outline: rgb(86, 149, 186) 1px auto;
 }
 
 .filtersOptions {
