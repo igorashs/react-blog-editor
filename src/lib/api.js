@@ -52,3 +52,13 @@ export async function fetchPosts(token) {
     return { error };
   }
 }
+
+export async function fetchPostCommentsWithId(id) {
+  try {
+    const data = await fetch(`${API_URL}posts/${id}/comments/`);
+
+    return await data.json();
+  } catch (error) {
+    return { error };
+  }
+}
