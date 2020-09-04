@@ -7,7 +7,6 @@ export default function Posts() {
   const posts = usePosts();
   const [filteredPosts, setFilteredPosts] = useState(null);
   const [isPublished, setIsPublished] = useState(false);
-  // const filteredPost = useFilteredPosts(posts);
 
   useEffect(() => {
     if (!filteredPosts) {
@@ -22,7 +21,6 @@ export default function Posts() {
     }
 
     setFilteredPosts(newFilteredPosts);
-    // TODO
   }, [posts, isPublished]);
 
   function handlePublished() {
@@ -48,14 +46,18 @@ export default function Posts() {
         {filteredPosts &&
           filteredPosts.map((post) => (
             <li className="PostListItem" key={post._id}>
-              <Link to={`/posts/${post._id}`}>
+              <Link to={{ pathname: `/posts/${post._id}`, state: post }}>
                 <article>
                   <h3>
                     {post.title.length > 200
                       ? `${post.title.slice(0, 200)}...`
                       : post.title}
                   </h3>
-                  <p>{post.timestamp}</p>
+                  <p>
+                    {post.isPublished
+                      ? 'Published ' + post.timestamp
+                      : post.timestamp}
+                  </p>
                 </article>
               </Link>
             </li>
