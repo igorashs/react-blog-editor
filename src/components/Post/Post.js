@@ -41,7 +41,10 @@ export default function Post() {
       <section className="PostMenu">
         <ul className="PostMenuList">
           <li>
-            <Link to={`/posts/${post._id}/edit/`} className="EditBtn menuBtn">
+            <Link
+              to={{ pathname: `/posts/${post._id}/edit/`, state: post }}
+              className="EditBtn menuBtn"
+            >
               Edit
             </Link>
           </li>
