@@ -58,7 +58,9 @@ export default function Post() {
       <header>
         <h1>
           <span className="Italic">{post.title}</span>
-          <p className="Date">Posted: {post.timestamp}</p>
+          <p className="Date">
+            {post.isPublished ? 'Posted: ' : 'Last Update: '} {post.timestamp}
+          </p>
         </h1>
       </header>
       <section className="PostText">
