@@ -81,8 +81,6 @@ function usePosts() {
       const token = localStorage.getItem('token');
       const res = await fetchPosts(token);
 
-      console.log(res);
-
       if (!res.error) {
         addTimestamps(res);
         sortByDate(res);
