@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { addTimestamps } from '../../lib/helpers';
-import { fetchPostCommentsWithId, deleteCommentById } from '../../lib/api';
+import {
+  fetchPostCommentsWithId,
+  deleteCommentById,
+  deletePost
+} from '../../lib/api';
 import { Link } from 'react-router-dom';
 import { useToken } from '../../lib/helpers';
 
@@ -16,6 +20,19 @@ export default function Post() {
     const res = await deleteCommentById(post._id, commentID, token);
     if (res.status === 204) {
       setComments(comments.filter((c) => c._id !== commentID));
+    } else {
+      window.alert('Something went wrong!');
+    }
+  }
+
+  async function handlePostDeleteClick() {
+    console.log('ye');
+    const res = await deletePost(post._id, token);
+
+    if (res.status === 204) {
+      window.location.replace('/');
+    } else {
+      window.alert('Something went wrong!');
     }
   }
 
@@ -29,7 +46,12 @@ export default function Post() {
             </Link>
           </li>
           <li>
-            <button className="DeleteBtn menuBtn">Delete</button>
+            <button
+              className="DeleteBtn menuBtn"
+              onClick={handlePostDeleteClick}
+            >
+              Delete
+            </button>
           </li>
         </ul>
       </section>

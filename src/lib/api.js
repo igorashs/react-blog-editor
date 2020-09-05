@@ -72,7 +72,21 @@ export async function deleteCommentById(postID, commentID, token) {
       }
     });
 
-    console.log(res);
+    return res;
+  } catch (error) {
+    return { error };
+  }
+}
+
+export async function deletePost(postID, token) {
+  try {
+    const res = await fetch(`${API_URL}posts/${postID}/`, {
+      method: 'Delete',
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+
     return res;
   } catch (error) {
     return { error };
