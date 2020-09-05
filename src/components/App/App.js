@@ -8,6 +8,7 @@ import {
   Redirect
 } from 'react-router-dom';
 import { fetchServerStatus } from '../../lib/api';
+import { useToken } from '../../lib/helpers';
 
 import Loading from '../Loading';
 import Post from '../Post';
@@ -49,6 +50,9 @@ function App() {
           <Route path="/posts/:postId" exact>
             {!token ? <Redirect to="/login" /> : <Post />}
           </Route>
+          <Route path="/posts/:postId/edit" exact>
+            {!token ? <Redirect to="/login" /> : <h1>Edit</h1>}
+          </Route>
           <Route path="/login">{token ? <Redirect to="/" /> : <Login />}</Route>
           <Route path="/">
             {!token ? <Redirect to="/login" /> : <Posts />}
@@ -80,17 +84,6 @@ function useIsOnline() {
   });
 
   return isOnline;
-}
-
-// get the token from LocalStorage
-function useToken() {
-  const [token, setToken] = useState('');
-
-  useEffect(() => {
-    setToken(localStorage.getItem('token'));
-  }, []);
-
-  return token;
 }
 
 export default App;

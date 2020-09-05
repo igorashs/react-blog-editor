@@ -1,4 +1,5 @@
 import moment from 'moment';
+import { useEffect, useState } from 'react';
 
 // add timestamps to state array (which have date prop)
 // doesn't modify the state if it has an invalid type
@@ -31,4 +32,15 @@ export function sortByDate(dataArr) {
 export function logout() {
   localStorage.removeItem('token');
   window.location.reload();
+}
+
+// get the token from LocalStorage
+export function useToken() {
+  const [token, setToken] = useState('');
+
+  useEffect(() => {
+    setToken(localStorage.getItem('token'));
+  }, []);
+
+  return token;
 }
