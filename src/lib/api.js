@@ -62,3 +62,19 @@ export async function fetchPostCommentsWithId(id) {
     return { error };
   }
 }
+
+export async function deleteCommentById(postID, commentID, token) {
+  try {
+    const res = await fetch(`${API_URL}posts/${postID}/comments/${commentID}`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+
+    console.log(res);
+    return res;
+  } catch (error) {
+    return { error };
+  }
+}
