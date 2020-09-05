@@ -1,14 +1,38 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { addTimestamps } from '../../lib/helpers';
-import { fetchPostCommentsWithId } from '../../lib/api';
+import { fetchPostCommentsWithId, deleteCommentById } from '../../lib/api';
+import { Link } from 'react-router-dom';
+import { useToken } from '../../lib/helpers';
 
 export default function Post() {
+  const token = useToken();
   const post = useLocation().state;
-  const comments = useComments(post._id);
+  const [comments, setComments] = useComments(post._id);
+
+  async function handleCommentDeleteClick(e) {
+    const { commentid: commentID } = e.currentTarget.dataset;
+
+    const res = await deleteCommentById(post._id, commentID, token);
+    if (res.status === 204) {
+      setComments(comments.filter((c) => c._id !== commentID));
+    }
+  }
 
   return (
     <article className="PostPage">
+      <section className="PostMenu">
+        <ul className="PostMenuList">
+          <li>
+            <Link to={`/posts/${post._id}/edit/`} className="EditBtn menuBtn">
+              Edit
+            </Link>
+          </li>
+          <li>
+            <button className="DeleteBtn menuBtn">Delete</button>
+          </li>
+        </ul>
+      </section>
       <header>
         <h1>
           <span className="Italic">{post.title}</span>
@@ -31,6 +55,13 @@ export default function Post() {
                       <p className="CommentText">{c.text}</p>
                       <p className="CommentDate">{c.timestamp}</p>
                     </div>
+                    <button
+                      className="DeleteBtn menuBtn"
+                      data-commentid={c._id}
+                      onClick={handleCommentDeleteClick}
+                    >
+                      Delete
+                    </button>
                   </article>
                 </li>
               ))}
@@ -62,5 +93,5 @@ function useComments(postId) {
     fetch();
   }, [postId]);
 
-  return comments;
+  return [comments, setComments];
 }

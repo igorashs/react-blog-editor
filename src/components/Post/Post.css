@@ -58,6 +58,33 @@
   text-align: right;
 }
 
+.PostMenuList {
+  display: grid;
+  grid-auto-flow: column;
+  gap: 16px;
+  justify-content: left;
+  padding: 8px 0;
+}
+
+.EditBtn {
+  display: block;
+  background: rgba(86, 186, 108, 40%) !important;
+}
+
+.DeleteBtn {
+  background: rgba(186, 86, 86, 40%) !important;
+}
+
+.EditBtn:hover,
+.EditBtn:focus {
+  outline: rgba(86, 186, 108) 1px auto !important;
+}
+
+.DeleteBtn:hover,
+.DeleteBtn:focus {
+  outline: rgba(186, 86, 86) 1px auto !important;
+}
+
 @media (max-width: 500px) {
   .PostPage h1 {
     font-size: 35px;
