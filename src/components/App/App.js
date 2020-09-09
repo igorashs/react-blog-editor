@@ -13,10 +13,10 @@ import { useToken } from '../../lib/helpers';
 import Loading from '../Loading';
 import Post from '../Post';
 import PostNew from '../PostNew';
+import PostEdit from '../PostEdit';
 
 const Login = lazy(() => import('../Login'));
 const Posts = lazy(() => import('../Posts'));
-// const Post = lazy(() => import('../Post'));
 
 function App() {
   const isOnline = useIsOnline();
@@ -52,7 +52,7 @@ function App() {
             {!token ? <Redirect to="/login" /> : <Post />}
           </Route>
           <Route path="/posts/:postId/edit" exact>
-            {!token ? <Redirect to="/login" /> : <h1>TODO: Edit</h1>}
+            {!token ? <Redirect to="/login" /> : <PostEdit />}
           </Route>
           <Route path="/login">{token ? <Redirect to="/" /> : <Login />}</Route>
           <Route path="/">

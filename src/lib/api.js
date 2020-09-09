@@ -109,3 +109,20 @@ export async function createPost(post, token) {
     return { error };
   }
 }
+
+export async function updatePost(postID, post, token) {
+  try {
+    const res = await fetch(`${API_URL}posts/${postID}/`, {
+      method: 'PUT',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(post)
+    });
+
+    return res;
+  } catch (error) {
+    return { error };
+  }
+}
