@@ -12,6 +12,7 @@ import { useToken } from '../../lib/helpers';
 
 import Loading from '../Loading';
 import Post from '../Post';
+import PostNew from '../PostNew';
 
 const Login = lazy(() => import('../Login'));
 const Posts = lazy(() => import('../Posts'));
@@ -45,13 +46,13 @@ function App() {
       <Suspense fallback={<Loading />}>
         <Switch>
           <Route path="/posts/new" exact>
-            {!token ? <Redirect to="/login" /> : <h1>new</h1>}
+            {!token ? <Redirect to="/login" /> : <PostNew />}
           </Route>
           <Route path="/posts/:postId" exact>
             {!token ? <Redirect to="/login" /> : <Post />}
           </Route>
           <Route path="/posts/:postId/edit" exact>
-            {!token ? <Redirect to="/login" /> : <h1>Edit</h1>}
+            {!token ? <Redirect to="/login" /> : <h1>TODO: Edit</h1>}
           </Route>
           <Route path="/login">{token ? <Redirect to="/" /> : <Login />}</Route>
           <Route path="/">
