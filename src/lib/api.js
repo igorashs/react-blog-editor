@@ -92,3 +92,20 @@ export async function deletePost(postID, token) {
     return { error };
   }
 }
+
+export async function createPost(post, token) {
+  try {
+    const res = await fetch(`${API_URL}posts/new/`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(post)
+    });
+
+    return res;
+  } catch (error) {
+    return { error };
+  }
+}
