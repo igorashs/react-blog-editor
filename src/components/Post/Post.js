@@ -43,14 +43,14 @@ export default function Post() {
           <li>
             <Link
               to={{ pathname: `/posts/${post._id}/edit/`, state: post }}
-              className="EditBtn menuBtn"
+              className="EditBtn MenuBtn"
             >
               Edit
             </Link>
           </li>
           <li>
             <button
-              className="DeleteBtn menuBtn"
+              className="DeleteBtn MenuBtn"
               onClick={handlePostDeleteClick}
             >
               Delete
@@ -83,7 +83,7 @@ export default function Post() {
                       <p className="CommentDate">{c.timestamp}</p>
                     </div>
                     <button
-                      className="DeleteBtn menuBtn"
+                      className="DeleteBtn MenuBtn"
                       data-commentid={c._id}
                       onClick={handleCommentDeleteClick}
                     >

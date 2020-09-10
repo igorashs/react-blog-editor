@@ -95,6 +95,7 @@ header h2 {
 
 .PostForm input,
 .PostForm textarea {
+  width: 100%;
   padding: 0 8px;
   font-size: 28px;
   text-align: center;
@@ -137,4 +138,10 @@ header h2 {
 
 .Btn {
   cursor: pointer;
+}
+
+@media (max-width: 500px) {
+  .App_Header {
+    font-size: 20px;
+  }
 }

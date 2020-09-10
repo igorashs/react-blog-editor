@@ -90,3 +90,9 @@
     font-size: 35px;
   }
 }
+
+@media (max-width: 400px) {
+  .PostPage h1 {
+    font-size: 28px;
+  }
+}
