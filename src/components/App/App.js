@@ -1,7 +1,7 @@
 import React, { useState, useEffect, lazy, Suspense } from 'react';
 import Status from './Status';
 import {
-  BrowserRouter as Router,
+  HashRouter as Router,
   Switch,
   Route,
   Link,
@@ -23,7 +23,7 @@ function App() {
   const token = useToken();
 
   return (
-    <Router>
+    <Router basename="/">
       <header className="App_Header">
         <nav className="App_Nav">
           <ul>
