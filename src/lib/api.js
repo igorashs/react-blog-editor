@@ -1,6 +1,6 @@
 // This is MY API WRAPPER for MY SERVER API CALLS
 
-const API_URL = 'http://localhost:9000/';
+const API_URL = 'https://aqueous-woodland-72578.herokuapp.com/';
 
 export async function fetchServerStatus() {
   try {
