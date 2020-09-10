@@ -29,21 +29,21 @@ export default function Posts() {
 
   return (
     <section className="PostsListSection">
-      <section className="filters">
+      <section className="Filters">
         <h3>Filters</h3>
-        <div className="filtersOptions">
+        <div className="FiltersOptions">
           <button
             onClick={handlePublished}
             className={
-              'filter ' + (isPublished ? 'filterEnabled' : 'filterDisabled')
+              'Filter ' + (isPublished ? 'FilterEnabled' : 'FilterDisabled')
             }
           >
             Published
           </button>
         </div>
       </section>
-      <section className="listMenu">
-        <Link to="/posts/new" className="menuBtn">
+      <section className="ListMenu">
+        <Link to="/posts/new" className="MenuBtn">
           Create
         </Link>
       </section>
