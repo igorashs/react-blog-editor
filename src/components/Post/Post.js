@@ -30,7 +30,7 @@ export default function Post() {
     const res = await deletePost(post._id, token);
 
     if (res.status === 204) {
-      window.location.replace('/');
+      window.location.reload();
     } else {
       window.alert('Something went wrong!');
     }

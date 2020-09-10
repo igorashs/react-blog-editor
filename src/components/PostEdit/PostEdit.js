@@ -34,7 +34,7 @@ export default function PostEdit() {
         setTitleError('invalid');
         setTextError('invalid');
       } else {
-        window.location.replace('/');
+        window.location.reload();
       }
     }
   }

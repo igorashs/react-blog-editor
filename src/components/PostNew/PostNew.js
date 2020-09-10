@@ -31,7 +31,7 @@ export default function PostNew() {
         setTitleError('invalid');
         setTextError('invalid');
       } else {
-        window.location.replace('/');
+        window.location.reload();
       }
     }
   }
